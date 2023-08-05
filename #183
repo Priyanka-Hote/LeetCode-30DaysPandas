@@ -1,0 +1,16 @@
+183. Customers Who Never Order
+in this problem we have 2 tables
+1st: customer(id,name)  # id is primary key
+2nd:order(id,customerId) #id is primary key and customerId is foreign key
+as schema
+we have create a dataframe with customer name who never order
+
+import pandas as pd
+
+def find_customers(customers: pd.DataFrame, orders: pd.DataFrame) -> pd.DataFrame:
+    df = customers.merge(orders,left_on='id',right_on='customerId',how='left')
+
+    df=df[df['customerId'].isna()]
+    df = df[['name']].rename(columns={'name':'Customers'})
+
+    return df
